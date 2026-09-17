@@ -1,0 +1,10 @@
+# APIキーなどの秘匿情報
+.ignore/
+
+# 収集結果
+user_id.csv
+user_info.json
+
+# Jupyter
+.ipynb_checkpoints/
+__pycache__/
