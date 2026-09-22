@@ -4,6 +4,15 @@ Steam Web API を使ってアカウント情報を取得する Jupyter Notebook�
 
 解説記事: https://qiita.com/Chronona/items/2e464ee96799dd0ed5c2
 
+## 構成
+
+| パス | 内容 |
+| --- | --- |
+| `fetch_user_info.ipynb` | 調査の手順と結果 |
+| `steam_api.py` | Steam Web API のラッパー |
+| `tests/` | テスト（下記） |
+| `docs/adr/` | 設計判断の記録 |
+
 ## できること
 
 `fetch_user_info.ipynb` は次の流れを扱う。
@@ -30,6 +39,22 @@ Steam Web API を使ってアカウント情報を取得する Jupyter Notebook�
 
 3. `fetch_user_info.ipynb` を開いて上から実行する。
    「SteamID の収集」以降は数千〜1 万件のリクエストを行うため、実行に時間がかかる。
+
+## テスト
+
+```sh
+pip install -r requirements-dev.txt
+```
+
+| コマンド | 内容 | API キー |
+| --- | --- | --- |
+| `pytest` | HTTP をスタブしたユニットテスト（1秒未満） | 不要 |
+| `pytest -m smoke` | 実 API に 1 アカウント分だけアクセスし、レスポンスの仕様が変わっていないか確認 | 必要 |
+
+スモークテストの API キーは環境変数 `STEAM_API_KEY`、または
+`.ignore/mydata/steam_api.txt` から読み込む。どちらも無い場合は skip される。
+
+テスト構成の意図は [ADR 0001](docs/adr/0001-api-wrapper-module-and-two-layer-tests.md) を参照。
 
 ## 参考
 
